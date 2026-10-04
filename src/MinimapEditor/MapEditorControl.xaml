@@ -10,122 +10,156 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="FlowBox" TargetType="{x:Type Border}">
-            <Setter Property="Width" Value="200"></Setter>
-            <Setter Property="Margin" Value="8,10,0,0"></Setter>
-            <Setter Property="Padding" Value="5"></Setter>
+            <Setter Property="BorderThickness" Value="1"></Setter>
+            <Setter Property="CornerRadius" Value="12"></Setter>
+            <Setter Property="Padding" Value="2"></Setter>
+            <Setter Property="Background" Value="Black"></Setter>
+            <Setter Property="BorderBrush" Value="#232337"></Setter>
+            <Setter Property="BorderBrush" Value="Orange"></Setter>
         </Style>
         <Style x:Key="BlueFlowBox" BasedOn="{StaticResource FlowBox}" TargetType="{x:Type Border}">
-            <Setter Property="BorderThickness" Value="3"></Setter>
-            <Setter Property="Background" Value="#E8FEFF"></Setter>
-            <Setter Property="BorderBrush" Value="#E8FEFF"></Setter>
+            <Setter Property="Background" Value="#101010"></Setter>
+            <Setter Property="BorderBrush" Value="#232337"></Setter>
             <Style.Triggers>
                 <DataTrigger Binding="{Binding (local:Util.IsActive2987), RelativeSource={RelativeSource Self}}" Value="True">
-                    <Setter Property="Background" Value="#9EFBFF"></Setter>
-                    <Setter Property="BorderBrush" Value="#00DDFF"></Setter>
+                    <Setter Property="Background" Value="Black"></Setter>
+                    <Setter Property="BorderBrush" Value="Gold"></Setter>
                 </DataTrigger>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <WrapPanel Grid.Column="0" Orientation="Vertical">
-            <Border Style="{StaticResource FlowBox}" Background="Beige">
-                <StackPanel Orientation="Vertical">
-                    <TextBlock Text="HOVERING" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Margin="10">
-                        <Run>X: </Run>
-                        <Run Name="xDisplay" Text="{Binding XDisplay2724}"></Run>
-                        <Run>,  Z: </Run>
-                        <Run Name="zDisplay" Text="{Binding ZDisplay6617}"></Run>
-                    </TextBlock>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center">Base Tile:</TextBlock>
-                        <Image Source="{Binding HoveredBaseTile4659.ImageSource}"></Image>
-                        <TextBlock VerticalAlignment="Center" Text="{Binding HoveredBaseTile4659.Name}"></TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock VerticalAlignment="Center">Overlay:</TextBlock>
-                        <Image Source="{Binding HoveredOverlay1634.ImageSource}"></Image>
-                        <TextBlock VerticalAlignment="Center" Text="{Binding HoveredOverlay1634.Name}"></TextBlock>
-                    </StackPanel>
-                    <TextBlock FontSize="10" TextWrapping="Wrap" Text="{Binding FullHoverInfo1657}"></TextBlock>
-                </StackPanel>
+    
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+        <Border Grid.Column="0" BorderBrush="#232337" Margin="8" BorderThickness="2" CornerRadius="13"  VerticalAlignment="Top">
+            <Border Grid.Column="0" Style="{StaticResource FlowBox}" VerticalAlignment="Top">
+                <UniformGrid Grid.Row="1" Columns="1" Rows="5" Margin="5,10,5,15" VerticalAlignment="Top">
+                    <ToggleButton Background="Transparent" BorderThickness="0" ToolTipService.InitialShowDelay="0" Height="30" IsChecked="{Binding Mode1336.IsSelectMode5073}">
+                        <Image Source="{Binding Mode1336.Tool1}"/>
+                        <ToggleButton.ToolTip>
+                            <ToolTip Background="Black">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Foreground="Gold">Select Tool</TextBlock>
+                                    <TextBlock Text="(or hold key: 1)" Margin="0,10,0,0"></TextBlock>
+                                    <TextBlock Text="Left mouse selects" Margin="0,10,0,0"></TextBlock>
+                                    <TextBlock Text="Right mouse deselects"></TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </ToggleButton.ToolTip>
+                    </ToggleButton>
+                    <ToggleButton Background="Transparent" BorderThickness="0" Height="30" ToolTipService.InitialShowDelay="0" IsChecked="{Binding Mode1336.IsRectSelectMode2843}">
+                        <Image Source="{Binding Mode1336.Tool2}"/>
+                        <ToggleButton.ToolTip>
+                            <ToolTip Background="Black">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Foreground="Gold">Select Rectangle Tool</TextBlock>
+                                    <TextBlock Text="(or hold key: 2)" Margin="0,10,0,0"></TextBlock>
+                                    <TextBlock Text="Left mouse selects" Margin="0,10,0,0"></TextBlock>
+                                    <TextBlock Text="Right mouse deselects"></TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </ToggleButton.ToolTip>
+                    </ToggleButton>
+                    <Button Background="Transparent" BorderThickness="0" Height="30" ToolTipService.InitialShowDelay="0" Command="{Binding CommandClearSelection9567}">
+                        <Image Source="{Binding Mode1336.ToolE}"/>
+                        <Button.ToolTip>
+                            <ToolTip Background="Black">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Foreground="Gold">Clear Selected Area</TextBlock>
+                                    <TextBlock Text="(or hold key: 4)" Margin="0,10,0,0"></TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                    <ToggleButton Background="Transparent" BorderThickness="0" Height="30" ToolTipService.InitialShowDelay="0" IsChecked="{Binding Mode1336.IsPasteMode4735}">
+                        <Image Source="{Binding Mode1336.Tool3}"/>
+                        <ToggleButton.ToolTip>
+                            <ToolTip Background="Black">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Foreground="Gold">Paste Tool</TextBlock>
+                                    <TextBlock Text="(or hold key: 4)" Margin="0,10,0,0"></TextBlock>
+                                    <TextBlock Text="Careful with the clipboard" Margin="0,10,0,0"></TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </ToggleButton.ToolTip>
+                    </ToggleButton>
+                    <ToggleButton Background="Transparent" BorderThickness="0" Height="30" ToolTipService.InitialShowDelay="0" IsChecked="{Binding Mode1336.IsModifyMode6812}">
+                        <Image Source="{Binding Mode1336.Tool4}"/>
+                        <ToggleButton.ToolTip>
+                            <ToolTip Background="Black">
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Foreground="Gold">Modify Tool</TextBlock>
+                                    <TextBlock Text="(or hold key: 3)" Margin="0,10,0,0"></TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </ToggleButton.ToolTip>
+                    </ToggleButton>
+                </UniformGrid>
             </Border>
-            <Border Style="{StaticResource BlueFlowBox}" local:Util.IsActive2987="{Binding Mode1336.IsAnySelectMode4440}" Visibility="{Binding Mode1336.VisibilityStandard5734}">
-                <StackPanel Orientation="Vertical">
-                    <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Mode1336.IsSelectMode5073}">SELECT</CheckBox>
-                    <TextBlock HorizontalAlignment="Center">(or hold key: 1)</TextBlock>
-                    <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Mode1336.IsRectSelectMode2843}" Margin="0,7,0,0">RECT SELECT</CheckBox>
-                    <TextBlock HorizontalAlignment="Center">(or hold key: 2)</TextBlock>
-                    <TextBlock Text="Left mouse selects" Margin="0,10,0,0"></TextBlock>
-                    <TextBlock Text="Right mouse deselects"></TextBlock>
-                    <TextBlock Margin="0,15,0,0">
-                        <Run Text="{Binding SelectionGrid1346.SelectionCount9593}"></Run>
-                        <Run> tile(s) selected</Run>
-                    </TextBlock>
-                    <Button Margin="0,8,0,0" Command="{Binding CommandClearSelection9567}">Clear Selection</Button>
-                </StackPanel>
-            </Border>
-            <Border Style="{StaticResource BlueFlowBox}" local:Util.IsActive2987="{Binding Mode1336.IsPasteMode4735}" Visibility="{Binding Mode1336.VisibilityStandard5734}">
-                <StackPanel Orientation="Vertical">
-                    <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Mode1336.IsPasteMode4735}">PASTE</CheckBox>
-                    <TextBlock HorizontalAlignment="Center">(or hold key: 4)</TextBlock>
-                    <Grid Margin="0,3,0,0">
-                        <TextBlock Text="{Binding PasteMessageGood7320}" TextWrapping="Wrap" VerticalAlignment="Center">
-                            <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ShowPasteError6146}" Value="True">
-                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ShowPasteError6146}" Value="False">
-                                            <Setter Property="Visibility" Value="Visible"></Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <TextBlock Text="Clipboard does not contain Minimap data!" Foreground="Red" TextWrapping="Wrap" VerticalAlignment="Center"
+        </Border>
+        <StackPanel Grid.Column="1" Orientation="Vertical">
+                <Border Style="{StaticResource BlueFlowBox}" local:Util.IsActive2987="{Binding Mode1336.IsPasteMode4735}" Visibility="{Binding Mode1336.VisibilityStandard5734}">
+                    <StackPanel Orientation="Vertical">
+                        <Grid Margin="0,3,0,0">
+                            <TextBlock Text="{Binding PasteMessageGood7320}" TextWrapping="Wrap" VerticalAlignment="Center">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShowPasteError6146}" Value="True">
+                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ShowPasteError6146}" Value="False">
+                                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="Clipboard does not contain Minimap data!" Foreground="Red" TextWrapping="Wrap" VerticalAlignment="Center"
                                    Background="White" Padding="3" FontWeight="Bold">
-                            <TextBlock.Style>
-                                <Style TargetType="{x:Type TextBlock}">
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding ShowPasteError6146}" Value="True">
-                                            <Setter Property="Visibility" Value="Visible"></Setter>
-                                        </DataTrigger>
-                                        <DataTrigger Binding="{Binding ShowPasteError6146}" Value="False">
-                                            <Setter Property="Visibility" Value="Hidden"></Setter>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </Grid>
-                </StackPanel>
-            </Border>
-            <Border Style="{StaticResource BlueFlowBox}" local:Util.IsActive2987="{Binding Mode1336.IsModifyMode6812}" Visibility="{Binding Mode1336.VisibilityStandard5734}">
+                                <TextBlock.Style>
+                                    <Style TargetType="{x:Type TextBlock}">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding ShowPasteError6146}" Value="True">
+                                                <Setter Property="Visibility" Value="Visible"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding ShowPasteError6146}" Value="False">
+                                                <Setter Property="Visibility" Value="Hidden"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            <Border Grid.Column="0" BorderBrush="#232337" Margin="8" BorderThickness="2" CornerRadius="13" VerticalAlignment="Top">
+            <Border Style="{StaticResource BlueFlowBox}" local:Util.IsActive2987="{Binding Mode1336.IsModifyMode6812}"  Visibility="{Binding Mode1336.VisibilityStandard5734}">
                 <StackPanel Orientation="Vertical">
-                    <CheckBox HorizontalAlignment="Center" IsChecked="{Binding Mode1336.IsModifyMode6812}">MODIFY</CheckBox>
-                    <TextBlock HorizontalAlignment="Center">(or hold key: 3)</TextBlock>
                     <local:TileSpecControl DataContext="{Binding ModifyTileSpec5436}"></local:TileSpecControl>
-                    <Button Command="{Binding CommandApplyToSelection4785}" Margin="0,20,0,0">
-                        <TextBlock>
+                        <Button Command="{Binding CommandApplyToSelection4785}" Margin="0,20,0,0">
+                            <TextBlock>
                             <Run>Apply to </Run>
                             <Run Text="{Binding SelectionGrid1346.SelectionCount9593}"></Run>
                             <Run> selected tile(s)</Run>
-                        </TextBlock>
-                    </Button>
-                </StackPanel>
+                            </TextBlock>
+                        </Button>
+                    </StackPanel>
+                </Border>
             </Border>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="2"> 
             <Border Style="{StaticResource BlueFlowBox}" local:Util.IsActive2987="{Binding Mode1336.IsWriteTextMode2099}" Visibility="{Binding Mode1336.VisibilityWriteText3657}">
                 <StackPanel Orientation="Vertical">
                     <TextBox Text="{Binding WriteText1898.Text1230, UpdateSourceTrigger=PropertyChanged}"
-                             Name="textToWrite" AcceptsReturn="True" MaxLines="99"></TextBox>
+             Name="textToWrite" AcceptsReturn="True" MaxLines="99"></TextBox>
                     <TextBlock Margin="0,10,0,0" TextWrapping="Wrap"
-                               Text="Left click on any tile to reposition the text"></TextBlock>
+               Text="Left click on any tile to reposition the text"></TextBlock>
                     <Button Margin="0,10,0,0" Command="{Binding CommandAcceptText9006}">Accept Text</Button>
                     <Button Margin="0,6,0,0" Command="{Binding CommandDiscardText1025}">Discard Text</Button>
                 </StackPanel>
@@ -142,70 +176,73 @@
                     <local:TileSpecControl DataContext="{Binding WriteText1898.TileOff1271}"></local:TileSpecControl>
                 </StackPanel>
             </Border>
-        </WrapPanel>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid HorizontalAlignment="Center">
-                <Grid.ContextMenu>
-                    <ContextMenu Opened="ContextMenu_Opened">
-                        <MenuItem Header="Selection...">
-                            <MenuItem Header="Clear Selection" Command="{Binding CommandClearSelection9567}"></MenuItem>
-                            <MenuItem Header="Invert Selection" Command="{Binding CommandInvertSelection4977}"></MenuItem>
-                            <MenuItem Header="Copy to Clipboard" Click="Copy_Click"></MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Add to Selection...">
-                            <MenuItem Header="Elevated Tiles" Command="{Binding CommandSelectElevatedTiles2364}"></MenuItem>
-                            <MenuItem Header="Illegal Tiles" Command="{Binding CommandSelectIllegalTiles8864}"></MenuItem>
-                            <MenuItem Header="Incorrect Shorelines" Command="{Binding CommandSelectIncorrectShorelines7151}"></MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Reset Zoom" Click="ResetZoom"></MenuItem>
-                        <MenuItem Header="Write Text..." Click="WriteText_Click"></MenuItem>
-                        <MenuItem Header="Modify...">
-                            <MenuItem Header="Reset Map...">
-                                <MenuItem Header="all tiles" Command="{Binding CommandResetMapAllTiles3843}"></MenuItem>
-                                <MenuItem Header="selected tiles" Command="{Binding CommandResetMapSelectedTiles1852}"></MenuItem>
+        </StackPanel>
+        <Border Grid.Column="3" BorderThickness="2" CornerRadius="12" Margin="8" Background="Black" Padding="2" BorderBrush="#232337">
+            <Grid >
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid HorizontalAlignment="Center">
+                    <Grid.ContextMenu>
+                        <ContextMenu Opened="ContextMenu_Opened">
+                            <MenuItem Header="Selection...">
+                                <MenuItem Header="Clear Selection" Command="{Binding CommandClearSelection9567}"></MenuItem>
+                                <MenuItem Header="Invert Selection" Command="{Binding CommandInvertSelection4977}"></MenuItem>
+                                <MenuItem Header="Copy to Clipboard" Click="Copy_Click"></MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Remove Elevation...">
-                                <MenuItem Header="all tiles" Command="{Binding CommandRemoveElevationAllTiles2125}"></MenuItem>
-                                <MenuItem Header="selected tiles" Command="{Binding CommandRemoveElevationSelectedTiles6487}"></MenuItem>
+                            <MenuItem Header="Add to Selection...">
+                                <MenuItem Header="Elevated Tiles" Command="{Binding CommandSelectElevatedTiles2364}"></MenuItem>
+                                <MenuItem Header="Illegal Tiles" Command="{Binding CommandSelectIllegalTiles8864}"></MenuItem>
+                                <MenuItem Header="Incorrect Shorelines" Command="{Binding CommandSelectIncorrectShorelines7151}"></MenuItem>
                             </MenuItem>
-                            <MenuItem Header="Fix Shorelines...">
-                                <MenuItem Header="all tiles" Command="{Binding CommandFixShorelinesAllTiles8510}"></MenuItem>
-                                <MenuItem Header="selected tiles" Command="{Binding CommandFixShorelinesSelectedTiles3733}"></MenuItem>
+                            <MenuItem Header="Reset Zoom" Click="ResetZoom"></MenuItem>
+                            <MenuItem Header="Write Text..." Click="WriteText_Click"></MenuItem>
+                            <MenuItem Header="Modify...">
+                                <MenuItem Header="Reset Map...">
+                                    <MenuItem Header="all tiles" Command="{Binding CommandResetMapAllTiles3843}"></MenuItem>
+                                    <MenuItem Header="selected tiles" Command="{Binding CommandResetMapSelectedTiles1852}"></MenuItem>
+                                </MenuItem>
+                                <MenuItem Header="Remove Elevation...">
+                                    <MenuItem Header="all tiles" Command="{Binding CommandRemoveElevationAllTiles2125}"></MenuItem>
+                                    <MenuItem Header="selected tiles" Command="{Binding CommandRemoveElevationSelectedTiles6487}"></MenuItem>
+                                </MenuItem>
+                                <MenuItem Header="Fix Shorelines...">
+                                    <MenuItem Header="all tiles" Command="{Binding CommandFixShorelinesAllTiles8510}"></MenuItem>
+                                    <MenuItem Header="selected tiles" Command="{Binding CommandFixShorelinesSelectedTiles3733}"></MenuItem>
+                                </MenuItem>
                             </MenuItem>
-                        </MenuItem>
-                        <MenuItem Header="Export Image..." Command="{Binding CommandExportImage5190}"></MenuItem>
-                    </ContextMenu>
-                </Grid.ContextMenu>
-                <local:ZoomAndPanControl Grid.Row="1" x:Name="Zoomer" PreviewMouseDown="Zoomer_PreviewMouseDown" PreviewMouseUp="Zoomer_PreviewMouseUp" MouseEnter="Zoomer_MouseEnter">
-                    <local:ZoomAndPanControl.Style>
-                        <Style TargetType="{x:Type local:ZoomAndPanControl}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding Mode1336.IsPanMode8931}" Value="True">
-                                    <Setter Property="Cursor" Value="ScrollAll"></Setter>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Mode1336.IsSelectMode5073}" Value="True">
-                                    <Setter Property="Cursor" Value="IBeam"></Setter>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Mode1336.IsRectSelectMode2843}" Value="True">
-                                    <Setter Property="Cursor" Value="SizeNWSE"></Setter>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Mode1336.IsModifyMode6812}" Value="True">
-                                    <Setter Property="Cursor" Value="Pen"></Setter>
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding Mode1336.IsPasteMode4735}" Value="True">
-                                    <Setter Property="Cursor" Value="Hand"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </local:ZoomAndPanControl.Style>
-                    <local:ZoomAndPanControl.ZoomableContent>
-                        <Grid Loaded="Grid_Loaded"></Grid>
-                    </local:ZoomAndPanControl.ZoomableContent>
-                </local:ZoomAndPanControl>
+                            <MenuItem Header="Export Image..." Command="{Binding CommandExportImage5190}"></MenuItem>
+                        </ContextMenu>
+                    </Grid.ContextMenu>
+                    <local:ZoomAndPanControl Grid.Row="1" x:Name="Zoomer" PreviewMouseDown="Zoomer_PreviewMouseDown" PreviewMouseUp="Zoomer_PreviewMouseUp" MouseEnter="Zoomer_MouseEnter">
+                        <local:ZoomAndPanControl.Style>
+                            <Style TargetType="{x:Type local:ZoomAndPanControl}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Mode1336.IsPanMode8931}" Value="True">
+                                        <Setter Property="Cursor" Value="ScrollAll"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Mode1336.IsSelectMode5073}" Value="True">
+                                        <Setter Property="Cursor" Value="IBeam"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Mode1336.IsRectSelectMode2843}" Value="True">
+                                        <Setter Property="Cursor" Value="SizeNWSE"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Mode1336.IsModifyMode6812}" Value="True">
+                                        <Setter Property="Cursor" Value="Pen"></Setter>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Mode1336.IsPasteMode4735}" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </local:ZoomAndPanControl.Style>
+                        <local:ZoomAndPanControl.ZoomableContent>
+                            <Grid Loaded="Grid_Loaded"></Grid>
+                        </local:ZoomAndPanControl.ZoomableContent>
+                    </local:ZoomAndPanControl>
+                </Grid>
             </Grid>
-        </Grid>
+        </Border>
     </Grid>
+
 </UserControl>

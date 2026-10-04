@@ -6,138 +6,131 @@
              xmlns:local="clr-namespace:MinimapEditor"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Margin="20" VerticalAlignment="Top">
+    <Grid Margin="10" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical">
-            <StackPanel Orientation="Vertical">
-                <TextBlock FontWeight="Bold" FontSize="16">CMNDAT File:</TextBlock>
-                <TextBox IsReadOnly="True" Text="{Binding CmndatPath2301, Mode=OneWay}"></TextBox>
-                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
-                    <Button Command="{Binding CommandBrowse1907}">Open CMNDAT</Button>
-                    <Button Margin="10,0,0,0" IsEnabled="{Binding CanSave8786}" Click="SaveCmndatAs_Click">Save As...</Button>
-                    <Button Margin="10,0,0,0" Command="{Binding CommandClose5823}">Close</Button>
-                </StackPanel>
-                <Border Margin="0,15,0,0" Background="#FF5" Padding="8" MaxWidth="760" HorizontalAlignment="Left">
-                    <Border.Style>
-                        <Style TargetType="{x:Type Border}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ShowSteamAutocloudWarning2483}" Value="False">
-                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </Border.Style>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                        <TextBlock TextWrapping="Wrap">
-                            It looks like Steam is not running.
-                            If you save to this location, Steam Autocloud might overwrite your changes the next time you start Steam.
-                            For best results, start DQB2, then exit DQB2 but leave Steam running.
-                            Then use this tool while Steam is still running, and your edits should be accepted into the Autocloud
-                            as if they had come from DQB2.
-                        </TextBlock>
-                        <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
-                            <Button Command="{Binding CommandRecheckSteam5759}">Check Again</Button>
-                            <Button Command="{Binding CommandDismissSteamWarning5909}" Margin="8,0,0,0">Dismiss Warning</Button>
-                        </StackPanel>
-                    </StackPanel>
-                </Border>
-            </StackPanel>
-
-            <StackPanel Margin="0,40,0,0">
-                <StackPanel.Style>
-                    <Style TargetType="{x:Type StackPanel}">
+            <TextBox IsReadOnly="True" Text="{Binding Path=CmndatPath2301, Mode=OneWay, StringFormat=CMNDAT File: {0}}"></TextBox>
+            <Border Margin="0,0,0,0" CornerRadius="12" Background="Orange" Padding="8" MaxWidth="760" HorizontalAlignment="Left">
+                <Border.Style>
+                    <Style TargetType="{x:Type Border}">
                         <Style.Triggers>
-                            <DataTrigger Binding="{Binding IslandChoices8930.Count}" Value="0">
-                                <Setter Property="Visibility" Value="Hidden"></Setter>
+                            <DataTrigger Binding="{Binding ShowSteamAutocloudWarning2483}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"></Setter>
                             </DataTrigger>
                         </Style.Triggers>
                     </Style>
-                </StackPanel.Style>
-                <TextBlock FontWeight="Bold" FontSize="16">Islands:</TextBlock>
-                <ListView HorizontalAlignment="Left" ItemsSource="{Binding IslandChoices8930}" SelectedItem="{Binding SelectedIsland2951}">
-                    <ListView.View>
-                        <GridView AllowsColumnReorder="False">
-                            <GridView.ColumnHeaderContainerStyle>
-                                <Style BasedOn="{StaticResource {x:Type GridViewColumnHeader}}" TargetType="{x:Type GridViewColumnHeader}">
-                                    <!-- disallow resize -->
-                                    <Setter Property="IsHitTestVisible" Value="False"></Setter>
-                                </Style>
-                            </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Header="Island Name" Width="Auto">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding IslandName3332}"></TextBlock>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock><Hyperlink Command="{Binding CommandOpenMinimap5775}">Edit Minimap</Hyperlink></TextBlock>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Unsaved Changes?">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="No Changes">
-                                                <TextBlock.Style>
-                                                    <Style TargetType="{x:Type TextBlock}">
+                </Border.Style>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                    <TextBlock TextWrapping="Wrap">
+            It looks like Steam is not running.
+            If you save to this location, Steam Autocloud might overwrite your changes the next time you start Steam.
+            For best results, start DQB2, then exit DQB2 but leave Steam running.
+            Then use this tool while Steam is still running, and your edits should be accepted into the Autocloud
+            as if they had come from DQB2.
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                        <Button Command="{Binding CommandRecheckSteam5759}">Check Again</Button>
+                        <Button Command="{Binding CommandDismissSteamWarning5909}" Margin="8,0,0,0">Dismiss Warning</Button>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Border BorderThickness="2" CornerRadius="12" Margin="4" Background="Black" Padding="8" BorderBrush="#232337">
+                <StackPanel Margin="0,0,0,0">
+                    <StackPanel.Style>
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IslandChoices8930.Count}" Value="0">
+                                    <Setter Property="Visibility" Value="Hidden"></Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+                    <TextBlock FontWeight="Bold" FontSize="16">Islands:</TextBlock>
+                    <ListView HorizontalAlignment="Left" ItemsSource="{Binding IslandChoices8930}" SelectedItem="{Binding SelectedIsland2951}">
+                        <ListView.View>
+                            <GridView AllowsColumnReorder="False">
+                                <GridView.ColumnHeaderContainerStyle>
+                                    <Style BasedOn="{StaticResource {x:Type GridViewColumnHeader}}" TargetType="{x:Type GridViewColumnHeader}">
+                                        <!-- disallow resize -->
+                                        <Setter Property="IsHitTestVisible" Value="False"></Setter>
+                                    </Style>
+                                </GridView.ColumnHeaderContainerStyle>
+                                <GridViewColumn Header="Island Name" Width="Auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding IslandName3332}"></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock><Hyperlink Command="{Binding CommandOpenMinimap5775}">Edit Minimap</Hyperlink></TextBlock>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Unsaved Changes?">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="No Changes">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ChangedTileCount4506}" Value="0">
+                                                                    <Setter Property="Visibility" Value="Visible"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                            <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                                <TextBlock>
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding ChangedTileCount4506}" Value="0">
+                                                                    <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                <Run Text="{Binding ChangedTileCount4506, Mode=OneWay}"></Run>
+                                                <Run Text="tile(s)"></Run>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Header="">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel.Style>
+                                                    <Style TargetType="{x:Type StackPanel}">
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding ChangedTileCount4506}" Value="0">
-                                                                <Setter Property="Visibility" Value="Visible"></Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
-                                                        <Setter Property="Visibility" Value="Collapsed"></Setter>
-                                                    </Style>
-                                                </TextBlock.Style>
-                                            </TextBlock>
-                                            <TextBlock>
-                                                <TextBlock.Style>
-                                                    <Style TargetType="{x:Type TextBlock}">
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding ChangedTileCount4506}" Value="0">
-                                                                <Setter Property="Visibility" Value="Collapsed"></Setter>
+                                                                <Setter Property="Visibility" Value="Hidden"></Setter>
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                         <Setter Property="Visibility" Value="Visible"></Setter>
                                                     </Style>
-                                                </TextBlock.Style>
-                                                <Run Text="{Binding ChangedTileCount4506, Mode=OneWay}"></Run>
-                                                <Run Text="tile(s)"></Run>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal">
-                                            <StackPanel.Style>
-                                                <Style TargetType="{x:Type StackPanel}">
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding ChangedTileCount4506}" Value="0">
-                                                            <Setter Property="Visibility" Value="Hidden"></Setter>
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                    <Setter Property="Visibility" Value="Visible"></Setter>
-                                                </Style>
-                                            </StackPanel.Style>
-                                            <TextBlock>
+                                                </StackPanel.Style>
+                                                <TextBlock>
                                                 <Hyperlink Command="{Binding CommandDiscardChanges2227}">Discard Changes</Hyperlink>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                        </GridView>
-                    </ListView.View>
-                </ListView>
-            </StackPanel>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Grid>
 </UserControl>

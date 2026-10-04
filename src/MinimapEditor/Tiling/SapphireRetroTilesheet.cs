@@ -17,6 +17,7 @@ public sealed class SapphireRetroTilesheet : Tilesheet
     private const int SelectionTileIndex = 32 * 32 - 1; // last tile of last row
     private readonly ImageSource?[] baseTileCache;
     private readonly ImageSource?[] overlayCache;
+    private readonly ImageSource?[] visibleCacheUI;
     public readonly Lazy<MinimapTileCombiner> Combiner;
 
     private SapphireRetroTilesheet() : base("SheetRetro.png", new XZ(32, 32))
@@ -28,6 +29,9 @@ public sealed class SapphireRetroTilesheet : Tilesheet
 
         overlayCache = new ImageSource[OverlayId.MaxValue + 1];
         overlayCache.AsSpan().Fill(null);
+
+        visibleCacheUI = new ImageSource[2];
+        visibleCacheUI.AsSpan().Fill(null);
     }
 
     public TileBytes GetBaseTile(BaseTileId baseId)
@@ -44,6 +48,12 @@ public sealed class SapphireRetroTilesheet : Tilesheet
     public TileBytes GetVisibility(bool visible)
     {
         int index = visible ? TransparentTileIndex : HiddenTileIndex;
+        return GetTileBytes(index);
+    }
+
+    public TileBytes GetVisibilityD(bool visible)
+    {
+        int index = visible ? 32 * 29  : 32 * 29 + 1;
         return GetTileBytes(index);
     }
 
@@ -76,6 +86,19 @@ public sealed class SapphireRetroTilesheet : Tilesheet
             img = GetOverlay(overlayId).CreateBitmap(this.TileSize);
             img.Freeze();
             overlayCache[overlayId] = img;
+        }
+        return img;
+    }
+
+    public ImageSource GetVisibilityDisplay(bool visible)
+    {
+        int index = visible ? 0 : 1;
+        var img = visibleCacheUI[index];
+        if (img == null)
+        {
+            img = GetVisibility(visible).CreateBitmap(this.TileSize);
+            img.Freeze();
+            visibleCacheUI[index] = img;
         }
         return img;
     }

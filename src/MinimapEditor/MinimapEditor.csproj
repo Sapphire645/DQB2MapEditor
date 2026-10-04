@@ -12,6 +12,10 @@
 
   <ItemGroup>
     <None Remove="Content\hammer256.png" />
+    <None Remove="Images\none.png" />
+    <None Remove="Images\Tool0.png" />
+    <None Remove="Images\Tool0S.png" />
+    <None Remove="Images\toolsheet.png" />
     <None Remove="SheetRetro.png" />
   </ItemGroup>
 
@@ -30,6 +34,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\submodules\LibDQB\LibDQB\LibDQB.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\none.png" />
+    <Resource Include="Images\toolsheet.png" />
   </ItemGroup>
 
   <ItemGroup>

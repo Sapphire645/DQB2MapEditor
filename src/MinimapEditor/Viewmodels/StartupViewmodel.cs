@@ -347,6 +347,11 @@ public sealed class StartupViewmodel : ViewmodelBase, IslandViewmodel.ICallback
         DialogManager.ShowMessageBox("Saved Successfully!", "Saved", MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
+
+    public void RecalculateSize(object sender, SizeChangedEventArgs e)
+    {
+        ((ReadmeViewmodel)readmeTab.Viewmodel2249).RecalculateSize((int)(e.NewSize.Height - 60));
+    }
     public sealed class TabItemViewmodel : ViewmodelBase
     {
         public required bool ClosesWithCmndat { get; init; }
@@ -355,10 +360,17 @@ public sealed class StartupViewmodel : ViewmodelBase, IslandViewmodel.ICallback
         public bool CanCloseTab4739 => CommandCloseTab2176 != null;
 
         private string _header = "";
+
+        private int _width = 200;
+        public int MyWidth
+        {
+            get => _width;
+            set => ChangeProperty(ref _width, value);
+        }
         public required string Header5924
         {
             get => _header;
-            set => ChangeProperty(ref _header, value);
+            set { ChangeProperty(ref _header, value); MyWidth = _header.Length * 10; }
         }
 
         public bool HoldsMapEditor([NotNullWhen(true)] out MapEditorViewmodel? vm)

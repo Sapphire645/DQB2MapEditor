@@ -5,51 +5,152 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MinimapEditor"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" SizeChanged="Resize">
+    <UserControl.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border Name="Border" Background="#232337" 
+                                BorderBrush="#232337" 
+                                CornerRadius="2" BorderThickness="2" Padding="1">
+                            <ContentPresenter />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Border"
+                        Property="BorderBrush"
+                        Value="Orange"/>
+                            </Trigger>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border"
+                        Property="BorderBrush"
+                        Value="Gold"/>
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+        </Style>
+
+    </UserControl.Resources>
     <StackPanel>
-        <StackPanel Orientation="Vertical" Margin="8" Background="White">
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding SetBaseTile7123}">Set Base Tile</CheckBox>
+        <StackPanel Orientation="Horizontal" Margin="8" >
+            <Border Background="#232337" CornerRadius="2">
                 <Image Margin="4,0,0,0" Source="{Binding SelectedBaseTile6495.ImageSource}"></Image>
-                <TextBlock VerticalAlignment="Center" Text="{Binding SelectedBaseTile6495.Name}"></TextBlock>
-            </StackPanel>
-            <ListView ItemsSource="{Binding BaseTileChoices2327}" SelectedItem="{Binding SelectedBaseTile6495}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel MaxWidth="120"></WrapPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Image MaxWidth="16" Source="{Binding ImageSource}"></Image>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Margin="8" Background="White">
-            <StackPanel Orientation="Horizontal">
-                <CheckBox VerticalAlignment="Center" IsChecked="{Binding SetOverlay1367}">Set Overlay</CheckBox>
+            </Border>
+            <TextBlock VerticalAlignment="Center" Text="{Binding SelectedBaseTile6495.Name}"></TextBlock>
+            <Border Background="#232337" CornerRadius="2">
                 <Image Margin="4,0,0,0" Source="{Binding SelectedOverlay8725.ImageSource}"></Image>
-                <TextBlock VerticalAlignment="Center" Text="{Binding SelectedOverlay8725.Name}"></TextBlock>
-            </StackPanel>
-            <ListView ItemsSource="{Binding OverlayChoices4299}" SelectedItem="{Binding SelectedOverlay8725}">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel MaxWidth="120"></WrapPanel>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <Image MaxWidth="16" Source="{Binding ImageSource}"></Image>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+            </Border>
+            <TextBlock VerticalAlignment="Center" Text="{Binding SelectedOverlay8725.Name}"></TextBlock>
         </StackPanel>
-        <StackPanel Orientation="Vertical" Margin="8" Background="White" DataContext="{Binding Visibility5366}">
-            <TextBlock>Change Visibility?</TextBlock>
-            <RadioButton GroupName="SetVisibility" IsChecked="{Binding IsNull3392}">No Change</RadioButton>
-            <RadioButton GroupName="SetVisibility" IsChecked="{Binding IsTrue9880}">Set Visible</RadioButton>
-            <RadioButton GroupName="SetVisibility" IsChecked="{Binding IsFalse9122}">Set Hidden</RadioButton>
+        <StackPanel Orientation="Vertical" Margin="8" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <ToggleButton Style="{DynamicResource ToggleButtonModify}"
+                              BorderThickness="2" VerticalAlignment="Top" ToolTipService.InitialShowDelay="0" 
+                              IsChecked="{Binding SetBaseTileInvert}" Padding="2" Click="Unselect">
+                    <Image Source="/Images/none.png" Width="28" Height="28" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                    <ToggleButton.ToolTip>
+                        <ToolTip Background="Black">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Foreground="Gold">Set/Unset Base Tile</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </ToggleButton.ToolTip>
+                </ToggleButton>
+                <ListView Name="BaseTileList" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          BorderThickness="0" ItemsSource="{Binding BaseTileChoices2327}" 
+                          SelectedItem="{Binding SelectedBaseTile6495}" Background="Transparent">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel ></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Image MaxWidth="30" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                                <Image.ToolTip>
+                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                </Image.ToolTip>
+                            </Image>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackPanel>
+
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="8" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <ToggleButton Style="{DynamicResource ToggleButtonModify}"
+                      BorderThickness="2" VerticalAlignment="Top" ToolTipService.InitialShowDelay="0" 
+                      IsChecked="{Binding SetOverlayInvert}" Padding="2" Click="UnselectO">
+                    <Image Source="/Images/none.png" Width="28" Height="28" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                    <ToggleButton.ToolTip>
+                        <ToolTip Background="Black">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Foreground="Gold">Set/Unset Overlay</TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </ToggleButton.ToolTip>
+                </ToggleButton>
+                <ListView  Name="OverlayTileList" BorderThickness="0"  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                           ItemsSource="{Binding OverlayChoices4299}" SelectedItem="{Binding SelectedOverlay8725}" Background="Transparent">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel ></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Image MaxWidth="30" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                                <Image.ToolTip>
+                                    <TextBlock Text="{Binding Name}"> </TextBlock>
+                                </Image.ToolTip>
+                            </Image>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Margin="8" Background="Transparent">
+            <StackPanel Orientation="Horizontal">
+                <RadioButton GroupName="SetVisibility" Style="{DynamicResource ToggleButtonModifyR2}"
+              BorderThickness="2" VerticalAlignment="Top" ToolTipService.InitialShowDelay="0" 
+              IsChecked="{Binding Visibility5366.IsNull3392}" Padding="1">
+                    <Image Source="/Images/none.png" Width="28" Height="28" RenderOptions.BitmapScalingMode="NearestNeighbor"/>
+                    <RadioButton.ToolTip>
+                        <ToolTip Background="Black">
+                            <StackPanel>
+                                <TextBlock FontWeight="Bold" Foreground="Gold">Set/Unset Discovered</TextBlock>
+                            </StackPanel>
+                        </ToolTip> 
+                    </RadioButton.ToolTip>
+                </RadioButton>
+                <RadioButton Style="{DynamicResource ToggleButtonModifyRadio}" 
+                             GroupName="SetVisibility" IsChecked="{Binding Visibility5366.IsTrue9880}">
+                    <Image MaxWidth="26" Source="{Binding Visible}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                        <Image.ToolTip>
+                            <TextBlock Text="Set Visible"></TextBlock>
+                        </Image.ToolTip>
+                    </Image>
+                </RadioButton>
+                <RadioButton  Style="{DynamicResource ToggleButtonModifyRadio}" 
+                              GroupName="SetVisibility" IsChecked="{Binding Visibility5366.IsFalse9122}">
+                    <Image MaxWidth="26" Source="{Binding Opaque}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                        <Image.ToolTip>
+                            <TextBlock Text="Set Hidden"></TextBlock>
+                        </Image.ToolTip>
+                    </Image>
+                </RadioButton>
+            </StackPanel>
         </StackPanel>
     </StackPanel>
 </UserControl>

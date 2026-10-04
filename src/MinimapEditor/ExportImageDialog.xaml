@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:MinimapEditor"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight" ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
-        Title="Export Image">
+        Title="Export Image"
+        Background="#202020">
     <StackPanel Orientation="Vertical" Margin="12">
         <Image Source="{Binding PreviewImage4497}" Width="500" Height="500"
                Stretch="Uniform" HorizontalAlignment="Center"></Image>

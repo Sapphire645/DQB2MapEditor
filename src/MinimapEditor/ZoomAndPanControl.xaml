@@ -9,23 +9,80 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- Measurement and Content Host (behind, invisible but measured) -->
-        <ScrollViewer x:Name="measurementViewer" Grid.Row="0" Panel.ZIndex="-1" Opacity="0" IsHitTestVisible="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-            <ContentPresenter x:Name="contentHost" Content="{Binding RelativeSource={RelativeSource AncestorType=local:ZoomAndPanControl}, Path=ZoomableContent}" />
-        </ScrollViewer>
+        <Grid Margin="4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Viewbox IsHitTestVisible="False" Margin="5,5,5,0" Grid.Row="0" Stretch="Uniform" Panel.ZIndex="-1">
+                <Border Grid.Row="0" BorderBrush="Yellow" Background="Transparent"
+                        Width="700" Height="700"
+                        HorizontalAlignment="Center" BorderThickness="2" 
+                        CornerRadius="10">
+                </Border>
+            </Viewbox>
 
-        <!-- Main Display -->
-        <Viewbox Grid.Row="0" x:Name="theViewbox" Stretch="Uniform" MouseWheel="MouseWheelZoom">
-            <Grid x:Name="viewboxContentGrid" MouseMove="viewboxContentGrid_MouseMove" MouseLeave="viewboxContentGrid_MouseLeave"
-                  MouseDown="viewboxContentGrid_MouseDown" MouseUp="viewboxContentGrid_MouseUp">
-                <Rectangle>
-                    <Rectangle.Fill>
-                        <VisualBrush x:Name="theBrush" Stretch="None" AlignmentX="Left" AlignmentY="Top" />
-                    </Rectangle.Fill>
-                </Rectangle>
-            </Grid>
-        </Viewbox>
+            <!-- Measurement and Content Host (behind, invisible but measured) -->
+            <ScrollViewer  Margin="15"  x:Name="measurementViewer" Grid.Row="0" Panel.ZIndex="-2" Opacity="0" IsHitTestVisible="False" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <ContentPresenter x:Name="contentHost" Content="{Binding RelativeSource={RelativeSource AncestorType=local:ZoomAndPanControl}, Path=ZoomableContent}" />
+            </ScrollViewer>
+
+            <!-- Main Display -->
+            <Viewbox   Margin="15" x:Name="theViewbox" Stretch="Uniform" MouseWheel="MouseWheelZoom">
+                <Grid x:Name="viewboxContentGrid" MouseMove="viewboxContentGrid_MouseMove" MouseLeave="viewboxContentGrid_MouseLeave"
+                      MouseDown="viewboxContentGrid_MouseDown" MouseUp="viewboxContentGrid_MouseUp">
+                    <Rectangle>
+                        <Rectangle.Fill>
+                            <VisualBrush x:Name="theBrush" Stretch="None" AlignmentX="Left" AlignmentY="Top" />
+                        </Rectangle.Fill>
+                    </Rectangle>
+                </Grid>
+            </Viewbox>
+        </Grid>
+
+        <StackPanel IsHitTestVisible="False"  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="20,-15,0,0" >
+            <Border BorderBrush="Yellow"  Padding="5,2" Margin="2,0" BorderThickness="1.5" Background="Black" CornerRadius="7">
+                <TextBlock IsHitTestVisible="False">
+                <Run>X: </Run>
+                <Run Name="xDisplay" Text="{Binding XDisplay2724}"></Run>
+                <Run>,  Z: </Run>
+                <Run Name="zDisplay" Text="{Binding ZDisplay6617}"></Run>
+                </TextBlock>
+            </Border>
+            <Border BorderBrush="Yellow"  Padding="2" Margin="2,0" BorderThickness="1.5" Background="Black" CornerRadius="7">
+                <StackPanel Orientation="Horizontal" >
+                    <Image Source="{Binding HoveredBaseTile4659.ImageSource}"></Image>
+                    <TextBlock VerticalAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Base Tile: {0}">
+                                <Binding Path="HoveredBaseTile4659.Name"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Yellow"  Padding="2" Margin="2,0" BorderThickness="1.5" Background="Black" CornerRadius="7">
+                <StackPanel Orientation="Horizontal" >
+                    <Image Source="{Binding HoveredOverlay1634.ImageSource}"></Image>
+                    <TextBlock VerticalAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Overlay: {0}">
+                                <Binding Path="HoveredOverlay1634.Name"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="Yellow"  Padding="2" Margin="2,0" BorderThickness="1.5" Background="Black" CornerRadius="7">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Images/Tool0.png" Width="16" VerticalAlignment="Center"></Image>
+                    <TextBlock>
+                        <Run Text="{Binding SelectionGrid1346.SelectionCount9593}"></Run>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </UserControl>

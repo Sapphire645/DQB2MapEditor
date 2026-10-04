@@ -1,4 +1,5 @@
 ﻿using LibDQB.DQB2Minimap;
+using MinimapEditor.Tiling;
 using MinimapEditor.Viewmodels;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,19 @@ public sealed class DataDefinitions
     {
         ImageSource GetBaseTileImage(BaseTileId baseTileId);
         ImageSource GetOverlayImage(OverlayId overlayId);
+
+        ImageSource GetVisibilityDisplay(bool visible);
     }
 
     public IReadOnlyList<BaseTileModel> BaseTiles { get; }
     public IReadOnlyList<OverlayModel> Overlays { get; }
 
+    public (ImageSource, ImageSource) Discovered { get; }
     public DataDefinitions(ITilesheet tilesheet)
     {
         BaseTiles = BuildBaseTiles(tilesheet).ToList();
         Overlays = BuildOverlays(tilesheet).ToList();
+        Discovered = (tilesheet.GetVisibilityDisplay(false), tilesheet.GetVisibilityDisplay(true));
     }
 
     private static IEnumerable<BaseTileModel> BuildBaseTiles(ITilesheet tilesheet)
@@ -30,7 +35,7 @@ public sealed class DataDefinitions
         {
             ImageSource = tilesheet.GetBaseTileImage(new BaseTileId(tileId)),
             BaseTileId = new BaseTileId(tileId),
-            Name = tileId.ToString(),
+            Name = tileId.ToString("D2"),
         });
     }
 
@@ -41,7 +46,7 @@ public sealed class DataDefinitions
         {
             OverlayId = new OverlayId(i),
             ImageSource = tilesheet.GetOverlayImage(new OverlayId(i)),
-            Name = i.ToString(),
+            Name = i.ToString("D2"),
         });
     }
 }

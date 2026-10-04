@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight" MaxWidth="340"
         ResizeMode="NoResize" WindowStyle="SingleBorderWindow"
-        Title="No Automatic Backups">
+        Title="No Automatic Backups"
+        Background="#202020">
     <Border Padding="15">
         <StackPanel Orientation="Vertical">
             <Grid>

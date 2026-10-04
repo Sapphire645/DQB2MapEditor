@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace MinimapEditor.Viewmodels;
 
@@ -38,6 +39,25 @@ public sealed class ModeModel : ViewmodelBase
         }
     }
 
+
+
+
+    private BitmapImage _toolSheet = new BitmapImage(new Uri("pack://application:,,,/" + "Images/toolsheet.png"));
+
+    private const int TOOL_SIZE = 80;
+    public CroppedBitmap toolImage(byte tool, bool active)
+    {
+        if (tool == 5) tool = 2;
+        return new CroppedBitmap(_toolSheet,
+            new Int32Rect(TOOL_SIZE * tool, active ? TOOL_SIZE : 0, TOOL_SIZE, TOOL_SIZE));
+    }
+
+    public CroppedBitmap Tool1 => toolImage(0, IsSelectMode5073);
+    public CroppedBitmap Tool2 => toolImage(1, IsRectSelectMode2843);
+    public CroppedBitmap Tool3 => toolImage(3, IsPasteMode4735);
+    public CroppedBitmap Tool4 => toolImage(4, IsModifyMode6812);
+
+    public CroppedBitmap ToolE => toolImage(2, false);
     public bool IsPanMode8931
     {
         get => _mode == Mode.Pan;

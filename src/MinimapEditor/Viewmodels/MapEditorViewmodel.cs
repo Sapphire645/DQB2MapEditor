@@ -1,8 +1,10 @@
 ﻿using LibDQB;
 using LibDQB.B2.Records;
 using LibDQB.DQB2Minimap;
+using MinimapEditor.Tiling;
 using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -46,6 +48,8 @@ public sealed class MapEditorViewmodel : ViewmodelBase, ZoomAndPanControl.IZoomM
         {
             BaseTileChoices2327 = definitions.BaseTiles,
             OverlayChoices4299 = definitions.Overlays,
+            Visible = definitions.Discovered.Item1,
+            Opaque = definitions.Discovered.Item2
         };
         ModifyTileSpec5436.SelectedBaseTile6495 = definitions.BaseTiles.SingleOrDefault(b => b.BaseTileId == 7);
         ModifyTileSpec5436.SetBaseTile7123 = true;
@@ -88,6 +92,7 @@ public sealed class MapEditorViewmodel : ViewmodelBase, ZoomAndPanControl.IZoomM
         var pasteStatus = pasteManager.GetStatus();
         PasteMessageGood7320 = pasteStatus.message;
         ShowPasteError6146 = pasteStatus.hasError;
+
     }
 
     private string _pasteMessageGood = "";
@@ -350,6 +355,7 @@ public sealed class MapEditorViewmodel : ViewmodelBase, ZoomAndPanControl.IZoomM
 
     private XZ mouseXZ = XZ.Zero.Add(-1, -1);
     internal XZ CurrentMouseXZ() => mouseXZ;
+
     public void OnMousePositionChanged(XZ xz)
     {
         var prevMouseXZ = mouseXZ;
@@ -363,24 +369,29 @@ public sealed class MapEditorViewmodel : ViewmodelBase, ZoomAndPanControl.IZoomM
 
             if (grid.Bounds.Contains(xz))
             {
+
                 var tile = grid.Get(xz);
-                // Show the real tile in the Debug Info...
-                FullHoverInfo1657 = $"Debug Info: 0x{tile.TileValue.ToString("x4")} / {tile.BaseTileId} / {tile.ApparentOverlayId}:{tile.FormulaicOverlayId} / {tile.IsVisible}";
-                // ... but show the "No Shoreline" everywhere else:
-                tile = tile.FixupShoreline(MinimapShorelineKey.NoShoreline);
-                HoveredBaseTile4659 = baseTileChoices.SingleOrDefault(t => t.BaseTileId == tile.BaseTileId);
-                if (HoveredBaseTile4659 == null)
-                {
-                    // Base tile is probably illegal. Don't show overlay info either.
-                    HoveredOverlay1634 = null;
-                }
-                else
-                {
-                    HoveredOverlay1634 = overlayChoices.SingleOrDefault(o => o.OverlayId == tile.ApparentOverlayId);
-                }
+
+                    // Show the real tile in the Debug Info...
+                    FullHoverInfo1657 = $"Debug Info: 0x{tile.TileValue.ToString("x4")} / {tile.BaseTileId} / {tile.ApparentOverlayId}:{tile.FormulaicOverlayId} / {tile.IsVisible}";
+                    // ... but show the "No Shoreline" everywhere else:
+                    tile = tile.FixupShoreline(MinimapShorelineKey.NoShoreline);
+                    HoveredBaseTile4659 = baseTileChoices.SingleOrDefault(t => t.BaseTileId == tile.BaseTileId);
+                    if (HoveredBaseTile4659 == null)
+                    {
+                        // Base tile is probably illegal. Don't show overlay info either.
+                        HoveredOverlay1634 = null;
+                    }
+                    else
+                    {
+                        HoveredOverlay1634 = overlayChoices.SingleOrDefault(o => o.OverlayId == tile.ApparentOverlayId);
+                    }
+
+                
             }
             else
             {
+
                 FullHoverInfo1657 = "";
                 HoveredBaseTile4659 = null;
                 HoveredOverlay1634 = null;
@@ -998,6 +1009,8 @@ public sealed class MapEditorViewmodel : ViewmodelBase, ZoomAndPanControl.IZoomM
                 OverlayChoices4299 = definitions.Overlays,
                 SetBaseTile7123 = true,
                 SetOverlay1367 = false,
+                Visible = definitions.Discovered.Item1,
+                Opaque = definitions.Discovered.Item2
             },
             TileOff1271 = new TileSpecViewmodel
             {
@@ -1005,6 +1018,8 @@ public sealed class MapEditorViewmodel : ViewmodelBase, ZoomAndPanControl.IZoomM
                 OverlayChoices4299 = definitions.Overlays,
                 SetBaseTile7123 = true,
                 SetOverlay1367 = false,
+                Visible = definitions.Discovered.Item1,
+                Opaque = definitions.Discovered.Item2
             }
         };
 

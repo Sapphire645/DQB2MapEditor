@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MinimapEditor"
-             mc:Ignorable="d" Background="Beige"
+             mc:Ignorable="d" Background="#202020"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <Style x:Key="paraHeader" TargetType="{x:Type Paragraph}">
@@ -13,8 +13,8 @@
             <Setter Property="Margin" Value="0,16,0,0"></Setter>
         </Style>
     </UserControl.Resources>
-    <ScrollViewer MaxWidth="700" Margin="15" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto">
-        <RichTextBox IsReadOnly="True" Padding="5">
+    <ScrollViewer Name="ScrollReadme" MaxWidth="700" MaxHeight="500" Height="{Binding myHeight}" Margin="15" HorizontalAlignment="Left" VerticalScrollBarVisibility="Auto">
+        <RichTextBox IsReadOnly="True" Padding="5" Background="Black" Foreground="White">
             <FlowDocument LineHeight="7">
                 <Paragraph Style="{StaticResource paraHeader}">About</Paragraph>
                 <Paragraph>Unofficial Map Editor for Dragon Quest Builders 2.</Paragraph>
