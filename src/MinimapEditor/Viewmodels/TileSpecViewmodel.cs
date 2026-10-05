@@ -72,10 +72,14 @@ public sealed class TileSpecViewmodel : ViewmodelBase
 
     public required IReadOnlyList<OverlayModel> OverlayChoices4299 { get; init; }
 
-    public NullableBooleanModel Visibility5366 { get; } = new();
+    public required NullableBooleanModel Visibility5366 { get; init; }
 
 
     public required ImageSource Visible { get; init; }
     public required ImageSource Opaque { get; init; }
+
+
+
+
 
 }

@@ -179,13 +179,10 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <SolidColorBrush x:Key="DarkOrangeBrush" Color="{StaticResource DarkAccentColor}" />
         <SolidColorBrush x:Key="MediumOrangeBrush" Color="{StaticResource DarkSelectedColor}" />
-
-       
-
         <SolidColorBrush x:Key="TextBox.Static.Background" Color="{StaticResource DarkBlackColor}"/>
-
         <Style TargetType="Button">
             <Setter Property="Background" Value="{StaticResource DarkBlueBrush}"/>
             <Setter Property="Padding" Value="2"/>

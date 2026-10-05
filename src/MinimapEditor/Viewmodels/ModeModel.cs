@@ -39,9 +39,6 @@ public sealed class ModeModel : ViewmodelBase
         }
     }
 
-
-
-
     private BitmapImage _toolSheet = new BitmapImage(new Uri("pack://application:,,,/" + "Images/toolsheet.png"));
 
     private const int TOOL_SIZE = 80;
@@ -56,8 +53,8 @@ public sealed class ModeModel : ViewmodelBase
     public CroppedBitmap Tool2 => toolImage(1, IsRectSelectMode2843);
     public CroppedBitmap Tool3 => toolImage(3, IsPasteMode4735);
     public CroppedBitmap Tool4 => toolImage(4, IsModifyMode6812);
-
     public CroppedBitmap ToolE => toolImage(2, false);
+
     public bool IsPanMode8931
     {
         get => _mode == Mode.Pan;

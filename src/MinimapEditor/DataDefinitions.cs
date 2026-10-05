@@ -15,18 +15,18 @@ public sealed class DataDefinitions
         ImageSource GetBaseTileImage(BaseTileId baseTileId);
         ImageSource GetOverlayImage(OverlayId overlayId);
 
-        ImageSource GetVisibilityDisplay(bool visible);
+        ImageSource GetVisibilityDisplay(byte visible);
     }
 
     public IReadOnlyList<BaseTileModel> BaseTiles { get; }
     public IReadOnlyList<OverlayModel> Overlays { get; }
 
-    public (ImageSource, ImageSource) Discovered { get; }
+    public (ImageSource, ImageSource, ImageSource, ImageSource) Discovered { get; }
     public DataDefinitions(ITilesheet tilesheet)
     {
         BaseTiles = BuildBaseTiles(tilesheet).ToList();
         Overlays = BuildOverlays(tilesheet).ToList();
-        Discovered = (tilesheet.GetVisibilityDisplay(false), tilesheet.GetVisibilityDisplay(true));
+        Discovered = (tilesheet.GetVisibilityDisplay(0), tilesheet.GetVisibilityDisplay(1), tilesheet.GetVisibilityDisplay(2), tilesheet.GetVisibilityDisplay(3));
     }
 
     private static IEnumerable<BaseTileModel> BuildBaseTiles(ITilesheet tilesheet)

@@ -56,7 +56,7 @@
                     <Image Source="{Binding HoveredBaseTile4659.ImageSource}"></Image>
                     <TextBlock VerticalAlignment="Center">
                         <TextBlock.Text>
-                            <MultiBinding StringFormat="Base Tile: {0}">
+                            <MultiBinding StringFormat="B: {0}">
                                 <Binding Path="HoveredBaseTile4659.Name"/>
                             </MultiBinding>
                         </TextBlock.Text>
@@ -68,7 +68,7 @@
                     <Image Source="{Binding HoveredOverlay1634.ImageSource}"></Image>
                     <TextBlock VerticalAlignment="Center">
                         <TextBlock.Text>
-                            <MultiBinding StringFormat="Overlay: {0}">
+                            <MultiBinding StringFormat="O: {0}">
                                 <Binding Path="HoveredOverlay1634.Name"/>
                             </MultiBinding>
                         </TextBlock.Text>
@@ -76,8 +76,26 @@
                 </StackPanel>
             </Border>
             <Border BorderBrush="Yellow"  Padding="2" Margin="2,0" BorderThickness="1.5" Background="Black" CornerRadius="7">
+                <TextBlock VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="V: {0}">
+                            <Binding Path="VisibleHoverInfo"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Border>
+            <Border BorderBrush="Yellow"  Padding="2" Margin="2,0" BorderThickness="1.5" Background="Black" CornerRadius="7">
+                <TextBlock VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="M: {0}">
+                            <Binding Path="MountainHoverInfo"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Border>
+            <Border BorderBrush="Yellow"  Padding="2" Margin="2,0" BorderThickness="1.5" Background="Black" CornerRadius="7">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Images/Tool0.png" Width="16" VerticalAlignment="Center"></Image>
+                    <Image Source="/Images/tool0.png" Width="16" VerticalAlignment="Center"></Image>
                     <TextBlock>
                         <Run Text="{Binding SelectionGrid1346.SelectionCount9593}"></Run>
                     </TextBlock>

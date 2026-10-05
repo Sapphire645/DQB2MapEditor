@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MinimapEditor"
              mc:Ignorable="d"
+             xmlns:resources="clr-namespace:MinimapEditor.Resources"
              d:DesignHeight="450" d:DesignWidth="800" SizeChanged="Resize">
     <UserControl.Resources>
         <Style TargetType="ListViewItem">
@@ -40,17 +41,49 @@
         </Style>
 
     </UserControl.Resources>
+    
     <StackPanel>
-        <StackPanel Orientation="Horizontal" Margin="8" >
-            <Border Background="#232337" CornerRadius="2">
-                <Image Margin="4,0,0,0" Source="{Binding SelectedBaseTile6495.ImageSource}"></Image>
+        <resources:OutlinedTextControl VerticalAlignment="Center" HorizontalAlignment="Left"
+    Text="Selected Options" TextWeight = "Bold" Width="120"
+                               Height="20" FontSize="12" StrokeThickness="3"></resources:OutlinedTextControl>
+        <Grid  Margin="8" >
+        <StackPanel Orientation="Horizontal">
+            <Border Background="#232337" CornerRadius="4" Padding="2">
+                <Grid>
+                    <Image RenderOptions.BitmapScalingMode="NearestNeighbor" Width="28" Height="28" Source="{Binding SelectedBaseTile6495.ImageSource}"></Image>
+                    <resources:OutlinedTextControl VerticalAlignment="Center" HorizontalAlignment="Center"
+                        Text="{Binding SelectedBaseTile6495.Name}" TextWeight = "Bold" 
+                                                   Height="20" FontSize="12" StrokeThickness="3"></resources:OutlinedTextControl>
+                </Grid>
             </Border>
-            <TextBlock VerticalAlignment="Center" Text="{Binding SelectedBaseTile6495.Name}"></TextBlock>
-            <Border Background="#232337" CornerRadius="2">
-                <Image Margin="4,0,0,0" Source="{Binding SelectedOverlay8725.ImageSource}"></Image>
+            <Border Background="#232337" CornerRadius="4"  Padding="2">
+                <Grid>
+                    <Image RenderOptions.BitmapScalingMode="NearestNeighbor" Width="28" Height="28" Source="{Binding SelectedOverlay8725.ImageSource}"></Image>
+                    <resources:OutlinedTextControl VerticalAlignment="Center" HorizontalAlignment="Center"
+        Text="{Binding SelectedOverlay8725.Name}" TextWeight = "Bold" 
+                                   Height="20" FontSize="12" StrokeThickness="3"></resources:OutlinedTextControl>
+                </Grid>
             </Border>
-            <TextBlock VerticalAlignment="Center" Text="{Binding SelectedOverlay8725.Name}"></TextBlock>
+            <Border Background="#232337" CornerRadius="4" Padding="2">
+                <Grid>
+                    <Image RenderOptions.BitmapScalingMode="NearestNeighbor" Width="28" Height="28" Source="{Binding Visibility5366.SelectedOpacity}"></Image>
+                    <resources:OutlinedTextControl VerticalAlignment="Center" HorizontalAlignment="Center"
+Text="{Binding Visibility5366.SelectedValue}" TextWeight = "Bold" 
+                           Height="20" FontSize="12" StrokeThickness="3"></resources:OutlinedTextControl>
+                </Grid>
+            </Border>
         </StackPanel>
+        <Border Background="#232337" CornerRadius="4" Padding="2" HorizontalAlignment="Right">
+            <Grid>
+                <Image RenderOptions.BitmapScalingMode="NearestNeighbor" Width="28" Height="28" Source="{Binding SelectedBaseTile6495.ImageSource}"></Image>
+                <Image RenderOptions.BitmapScalingMode="NearestNeighbor" Width="28" Height="28" Source="{Binding SelectedOverlay8725.ImageSource}"></Image>
+                <Image RenderOptions.BitmapScalingMode="NearestNeighbor" Width="28" Height="28" Source="{Binding Visibility5366.SelectedOpacity}"></Image>
+            </Grid>
+        </Border>
+    </Grid>
+        <resources:OutlinedTextControl VerticalAlignment="Center" HorizontalAlignment="Left"
+Text="Select Base Tile:" TextWeight = "Bold" Width="120"
+                           Height="20" FontSize="12" StrokeThickness="3"></resources:OutlinedTextControl>
         <StackPanel Orientation="Vertical" Margin="8" Background="Transparent">
             <StackPanel Orientation="Horizontal">
                 <ToggleButton Style="{DynamicResource ToggleButtonModify}"
@@ -77,7 +110,9 @@
                         <DataTemplate>
                             <Image MaxWidth="30" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="NearestNeighbor">
                                 <Image.ToolTip>
-                                    <TextBlock Text="{Binding Name}"></TextBlock>
+                                    <ToolTip Background="Black">
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </ToolTip>
                                 </Image.ToolTip>
                             </Image>
                         </DataTemplate>
@@ -87,6 +122,9 @@
             </StackPanel>
 
         </StackPanel>
+        <resources:OutlinedTextControl VerticalAlignment="Center" HorizontalAlignment="Left"
+Text="Select Overlay:" TextWeight = "Bold" Width="120"
+                           Height="20" FontSize="12" StrokeThickness="3"></resources:OutlinedTextControl>
         <StackPanel Orientation="Vertical" Margin="8" Background="Transparent">
             <StackPanel Orientation="Horizontal">
                 <ToggleButton Style="{DynamicResource ToggleButtonModify}"
@@ -111,8 +149,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Image MaxWidth="30" Source="{Binding ImageSource}" RenderOptions.BitmapScalingMode="NearestNeighbor">
-                                <Image.ToolTip>
-                                    <TextBlock Text="{Binding Name}"> </TextBlock>
+                                <Image.ToolTip >
+                                    <ToolTip Background="Black">
+                                        <TextBlock Text="{Binding Name}"></TextBlock>
+                                    </ToolTip>
                                 </Image.ToolTip>
                             </Image>
                         </DataTemplate>
@@ -120,6 +160,9 @@
                 </ListView>
             </StackPanel>
         </StackPanel>
+        <resources:OutlinedTextControl VerticalAlignment="Center" HorizontalAlignment="Left"
+Text="Select Visibility:" TextWeight = "Bold" Width="120"
+                           Height="20" FontSize="12" StrokeThickness="3"></resources:OutlinedTextControl>
         <StackPanel Orientation="Vertical" Margin="8" Background="Transparent">
             <StackPanel Orientation="Horizontal">
                 <RadioButton GroupName="SetVisibility" Style="{DynamicResource ToggleButtonModifyR2}"
@@ -136,17 +179,21 @@
                 </RadioButton>
                 <RadioButton Style="{DynamicResource ToggleButtonModifyRadio}" 
                              GroupName="SetVisibility" IsChecked="{Binding Visibility5366.IsTrue9880}">
-                    <Image MaxWidth="26" Source="{Binding Visible}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                    <Image MaxWidth="26" Source="{Binding Opaque}" RenderOptions.BitmapScalingMode="NearestNeighbor">
                         <Image.ToolTip>
-                            <TextBlock Text="Set Visible"></TextBlock>
+                            <ToolTip Background="Black">
+                            <TextBlock Text="Set Hidden"></TextBlock>
+                                </ToolTip>
                         </Image.ToolTip>
                     </Image>
                 </RadioButton>
                 <RadioButton  Style="{DynamicResource ToggleButtonModifyRadio}" 
                               GroupName="SetVisibility" IsChecked="{Binding Visibility5366.IsFalse9122}">
-                    <Image MaxWidth="26" Source="{Binding Opaque}" RenderOptions.BitmapScalingMode="NearestNeighbor">
+                    <Image MaxWidth="26" Source="{Binding Visible}" RenderOptions.BitmapScalingMode="NearestNeighbor">
                         <Image.ToolTip>
-                            <TextBlock Text="Set Hidden"></TextBlock>
+                            <ToolTip Background="Black">
+                                <TextBlock Text="Set Visible"></TextBlock>
+                            </ToolTip>
                         </Image.ToolTip>
                     </Image>
                 </RadioButton>

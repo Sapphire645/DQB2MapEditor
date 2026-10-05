@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Windows.Media;
 
 namespace MinimapEditor.Viewmodels;
 
@@ -27,4 +28,12 @@ public sealed class NullableBooleanModel : ViewmodelBase
     }
 
     public bool? Value() => val;
+
+    public required ImageSource OpaqueD { get; init; }
+
+    public required ImageSource VisibleD { get; init; }
+
+    public ImageSource SelectedOpacity => IsFalse9122 ? VisibleD : OpaqueD;
+
+    public String SelectedValue => IsFalse9122 ? "F" : IsTrue9880 ? "T" : "";
 }

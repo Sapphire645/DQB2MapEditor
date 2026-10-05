@@ -30,7 +30,7 @@ public sealed class SapphireRetroTilesheet : Tilesheet
         overlayCache = new ImageSource[OverlayId.MaxValue + 1];
         overlayCache.AsSpan().Fill(null);
 
-        visibleCacheUI = new ImageSource[2];
+        visibleCacheUI = new ImageSource[4];
         visibleCacheUI.AsSpan().Fill(null);
     }
 
@@ -54,6 +54,12 @@ public sealed class SapphireRetroTilesheet : Tilesheet
     public TileBytes GetVisibilityD(bool visible)
     {
         int index = visible ? 32 * 29  : 32 * 29 + 1;
+        return GetTileBytes(index);
+    }
+
+    public TileBytes GetVisibilityTwo(bool visible)
+    {
+        int index = visible ? 32 * 30 : 32 * 30 + 1;
         return GetTileBytes(index);
     }
 
@@ -90,13 +96,15 @@ public sealed class SapphireRetroTilesheet : Tilesheet
         return img;
     }
 
-    public ImageSource GetVisibilityDisplay(bool visible)
+    public ImageSource GetVisibilityDisplay(byte index)
     {
-        int index = visible ? 0 : 1;
         var img = visibleCacheUI[index];
         if (img == null)
         {
-            img = GetVisibility(visible).CreateBitmap(this.TileSize);
+            if(index < 2)
+                img = GetVisibility(index == 1).CreateBitmap(this.TileSize);
+            else
+                img = GetVisibility(index-2 == 1).CreateBitmap(this.TileSize);
             img.Freeze();
             visibleCacheUI[index] = img;
         }
